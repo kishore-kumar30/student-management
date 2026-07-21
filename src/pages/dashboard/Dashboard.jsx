@@ -1,5 +1,7 @@
 import ChartSection from "../../components/dashboard/ChartSection";
 import DashboardHeader from "../../components/dashboard/DashboardHeader";
+import QuickActions from "../../components/dashboard/QuickActions";
+import RecentStudents from "../../components/dashboard/RecentStudents";
 import StatCard from "../../components/dashboard/StatCard";
 import {
   FaUserGraduate,
@@ -44,7 +46,19 @@ function Dashboard() {
         </div>
 
         <ChartSection />
+
+
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+
+        <div className="xl:col-span-2">
+          <RecentStudents />
+        </div>
+
+        <QuickActions />
+
       </div>
+      </div>
+      
     </div>
   );
 }

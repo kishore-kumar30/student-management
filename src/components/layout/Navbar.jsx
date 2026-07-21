@@ -2,7 +2,7 @@ import { FaBell, FaUserCircle, FaBars } from "react-icons/fa";
 
 function Navbar() {
   return (
-    <header className="bg-white shadow-sm flex items-center justify-between p-5">
+    <header className="sticky top-0 z-10 h-16 bg-white shadow flex items-center justify-between px-6">
       {/* Left Section */}
       <div className="flex items-center gap-4">
         <button className="md:hidden text-xl">

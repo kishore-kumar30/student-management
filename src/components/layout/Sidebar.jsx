@@ -27,7 +27,7 @@ const menuItems = [
 function Sidebar({ collapsed, setCollapsed }) {
   return (
     <aside
-      className={`${collapsed ? "w-20" : "w-54"} h-screen bg-cyan-950 text-white flex flex-col`}
+      className={`${collapsed ? "w-20" : "w-54"} h-screen bg-cyan-950 text-white flex flex-col transition-all duration-300 flex-shrink-0`}
     >
       <div className={`text-2xl font-bold ${collapsed ? 'text-center' : ''} p-6 border-b border-cyan-600`}>
         <button className="cursor-pointer" onClick={() => setCollapsed(!collapsed)}>{collapsed ? <FaTimes /> : <FaBars />}</button>

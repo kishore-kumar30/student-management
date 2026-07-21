@@ -7,10 +7,10 @@ function DashboardLayout() {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100">
       <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col overflow-hidden">
         <Navbar collapsed={collapsed} setCollapsed={setCollapsed} />
 
         <main className="flex-1 p-6 overflow-y-auto">
