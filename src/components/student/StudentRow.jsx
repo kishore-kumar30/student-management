@@ -1,22 +1,31 @@
-import React from 'react'
-import StudentStatus from './StudentStatus';
-import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
+import React from "react";
+import StudentStatus from "./StudentStatus";
+import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import Avatar from "../../assets/avatar.png";
 
-const StudentRow = ({student}) => {
-   return (
+const StudentRow = ({ student }) => {
+  
+  return (
     <tr className="border-b hover:bg-gray-50 transition">
-
       <td className="p-4">
-        <img
-          src={student.photo}
-          alt={student.name}
-          className="w-10 h-10 rounded-full object-cover"
-        />
+        {student.profileImage ? (
+          <img
+            src={student.profileImage}
+            alt={student.fullName}
+            className="w-10 h-10 rounded-full object-cover"
+          />
+        ) : (
+          <img
+            src={Avatar}
+            alt={student.fullName}
+            className="w-10 h-10 rounded-full object-cover"
+          />
+        )}
       </td>
 
-      <td>{student.rollNo}</td>
+      <td>{student.rollNumber}</td>
 
-      <td>{student.name}</td>
+      <td>{student.fullName}</td>
 
       <td>{student.department}</td>
 
@@ -28,24 +37,21 @@ const StudentRow = ({student}) => {
 
       <td>
         <div className="flex gap-4 text-lg">
-
-          <button className="text-blue-600 hover:text-blue-800">
+          <button className="text-blue-600 hover:text-blue-800 cursor-pointer">
             <FaEye />
           </button>
 
-          <button className="text-green-600 hover:text-green-800">
+          <button className="text-green-600 hover:text-green-800 cursor-pointer">
             <FaEdit />
           </button>
 
-          <button className="text-red-600 hover:text-red-800">
+          <button className="text-red-600 hover:text-red-800 cursor-pointer">
             <FaTrash />
           </button>
-
         </div>
       </td>
-
     </tr>
   );
-}
+};
 
-export default StudentRow
+export default StudentRow;

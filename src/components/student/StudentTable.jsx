@@ -27,7 +27,7 @@ const StudentTable = ({students}) => {
 
           {students.map(student => (
             <StudentRow
-              key={student.id}
+              key={student._id}
               student={student}
             />
           ))}
