@@ -1,7 +1,7 @@
 import React from 'react'
 import StudentRow from './StudentRow';
 
-const StudentTable = ({students}) => {
+const StudentTable = ({students, fetchStudents}) => {
   return (
     <div className="bg-white rounded-xl shadow overflow-hidden">
 
@@ -29,6 +29,7 @@ const StudentTable = ({students}) => {
             <StudentRow
               key={student._id}
               student={student}
+              fetchStudents={fetchStudents}
             />
           ))}
 

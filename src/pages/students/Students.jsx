@@ -8,15 +8,16 @@ import { getStudents } from "../../services/studentService";
 const Students = () => {
   const [students, setStudents] = useState([]);
 
+  const fetchStudents = async () => {
+    try {
+      const response = await getStudents();
+      setStudents(response.data);
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const response = await getStudents();
-        setStudents(response.data);
-      } catch (error) {
-        console.error("Error fetching students:", error);
-      }
-    };
     fetchStudents();
   }, []);
 
@@ -26,7 +27,7 @@ const Students = () => {
 
       <StudentFilters />
 
-      <StudentTable students={students} />
+      <StudentTable students={students} fetchStudents={fetchStudents} />
 
       <Pagination />
     </div>

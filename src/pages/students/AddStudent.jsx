@@ -1,5 +1,5 @@
 import React from 'react'
-import AddStudentForm from '../../components/student/AddStudentForm'
+import StudentForm from '../../components/student/StudentForm'
 
 const AddStudent = () => {
   return (
@@ -15,7 +15,7 @@ const AddStudent = () => {
         </p>
       </div>
 
-      <AddStudentForm />
+      <StudentForm mode="add" />
 
     </div>
   )

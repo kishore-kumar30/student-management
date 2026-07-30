@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProfileUpload from "./ProfileUpload";
 import FormButtons from "./FormButtons";
 import FormSection from "./FormSection";
 import Input from "../common/Input";
 import Select from "../common/Select";
 import Textarea from "../common/TextArea";
-import { createStudent } from "../../services/studentService";
+import { createStudent, updateStudent } from "../../services/studentService";
 
-const AddStudentForm = () => {
+const StudentForm = ({ mode = "add", student }) => {
   const [profileImage, setProfileImage] = useState(null);
   const [formData, setFormData] = useState({
     fullName: "",
@@ -31,12 +31,49 @@ const AddStudentForm = () => {
     address: "",
   });
 
+  useEffect(() => {
+  if (mode === "edit" && student) {
+    setFormData({
+      fullName: student.fullName || "",
+      rollNumber: student.rollNumber || "",
+      email: student.email || "",
+      phone: student.phone || "",
+      gender: student.gender || "",
+      dob: student.dob ? student.dob.split("T")[0] : "",
+      department: student.department || "",
+      course: student.course || "",
+      year: student.year || "",
+      semester: student.semester || "",
+      fatherName: student.fatherName || "",
+      motherName: student.motherName || "",
+      parentPhone: student.parentPhone || "",
+      parentEmail: student.parentEmail || "",
+      admissionNumber: student.admissionNumber || "",
+      admissionDate: student.admissionDate
+        ? student.admissionDate.split("T")[0]
+        : "",
+      previousSchool: student.previousSchool || "",
+      cgpa: student.cgpa || "",
+      address: student.address || "",
+    });
+  }
+}, [mode, student]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try{
-      const response = await createStudent(formData);
+       let response;
+
+    if (mode === "add") {
+      response = await createStudent(formData);
       alert("Student created successfully!");
+    } else {
+      response = await updateStudent(student._id, formData);
+      alert("Student updated successfully!");
+    }
+
+    console.log(response);
     } catch (error) {
       console.error("Error creating student:", error);
     }
@@ -237,4 +274,4 @@ const AddStudentForm = () => {
   );
 };
 
-export default AddStudentForm;
+export default StudentForm;

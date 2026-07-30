@@ -62,6 +62,12 @@ const studentSchema = new mongoose.Schema(
       required: true,
     },
 
+    status: {
+      type: String,
+      enum: ["Active", "Inactive"],
+      default: "Active",
+    },
+
     fatherName: String,
     motherName: String,
     parentPhone: String,
@@ -79,7 +85,7 @@ const studentSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export default mongoose.model("Student", studentSchema);

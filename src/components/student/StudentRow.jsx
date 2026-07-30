@@ -2,9 +2,31 @@ import React from "react";
 import StudentStatus from "./StudentStatus";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import Avatar from "../../assets/avatar.png";
+import { useNavigate } from "react-router-dom";
+import { deleteStudent } from "../../services/studentService";
 
-const StudentRow = ({ student }) => {
-  
+const StudentRow = ({ student, fetchStudents }) => {
+  const handleDelete = async () => {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete ${student.fullName}?`,
+    );
+
+    if (!confirmed) return;
+
+    try {
+      await deleteStudent(student._id);
+
+      alert("Student deleted successfully!");
+
+      fetchStudents();
+    } catch (error) {
+      console.error(error);
+
+      alert("Failed to delete student.");
+    }
+  };
+  const navigate = useNavigate();
+
   return (
     <tr className="border-b hover:bg-gray-50 transition">
       <td className="p-4">
@@ -37,15 +59,24 @@ const StudentRow = ({ student }) => {
 
       <td>
         <div className="flex gap-4 text-lg">
-          <button className="text-blue-600 hover:text-blue-800 cursor-pointer">
+          <button
+            onClick={() => navigate(`/students/${student._id}`)}
+            className="text-blue-600 hover:text-blue-800 cursor-pointer"
+          >
             <FaEye />
           </button>
 
-          <button className="text-green-600 hover:text-green-800 cursor-pointer">
+          <button
+            onClick={() => navigate(`/students/edit/${student._id}`)}
+            className="text-green-600 hover:text-green-800 cursor-pointer"
+          >
             <FaEdit />
           </button>
 
-          <button className="text-red-600 hover:text-red-800 cursor-pointer">
+          <button
+            onClick={handleDelete}
+            className="text-red-600 hover:text-red-800 cursor-pointer"
+          >
             <FaTrash />
           </button>
         </div>

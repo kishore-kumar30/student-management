@@ -23,6 +23,8 @@ function AppRoutes() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/students" element={<Students />} />
         <Route path="/students/add" element={<AddStudent />} />
+        <Route path="/students/:id" element={<StudentProfile />} />
+        <Route path="/students/edit/:id" element={<EditStudent />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/attendance" element={<Attendance />} />
         <Route path="/marks" element={<Marks />} />
