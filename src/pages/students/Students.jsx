@@ -25,11 +25,21 @@ const Students = () => {
     <div className="space-y-6">
       <StudentHeader />
 
-      <StudentFilters />
+      {students.length > 0 ? (
+        <>
+          <StudentFilters />
 
-      <StudentTable students={students} fetchStudents={fetchStudents} />
+          <StudentTable students={students} fetchStudents={fetchStudents} />
 
-      <Pagination />
+          <Pagination />
+        </>
+      ) : (
+        <div>
+          <h1 className="text-xl font-bold text-center text-gray-800">
+            No record found.
+          </h1>
+        </div>
+      )}
     </div>
   );
 };

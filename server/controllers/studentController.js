@@ -2,7 +2,13 @@ import student from "../models/student.js";
 
 export const createStudent = async (req, res) => {
   try {
-    const newStudent = await student.create(req.body);
+    const studentData = {
+      ...req.body,
+    };
+    if (req.file) {
+      studentData.profileImage = `/uploads/${req.file.filename}`;
+    }
+    const newStudent = await student.create(studentData);
 
     res.status(201).json({
       success: true,
@@ -60,8 +66,19 @@ export const getStudentById = async (req, res) => {
 
 export const updateStudent = async (req, res) => {
   try {
+    const studentData = {
+      ...req.body,
+    };
+
+    if (req.file) {
+      studentData.profileImage = `/uploads/${req.file.filename}`;
+    }
     const { studentId } = req.params;
-    const updatedStudent = await student.findByIdAndUpdate(studentId, req.body, { new: true, runValidators: true });
+    const updatedStudent = await student.findByIdAndUpdate(
+      studentId,
+      studentData,
+      { new: true, runValidators: true },
+    );
 
     if (!updatedStudent) {
       return res.status(404).json({
@@ -103,5 +120,5 @@ export const deleteStudent = async (req, res) => {
       success: false,
       message: error.message,
     });
-  } 
-}
+  }
+};

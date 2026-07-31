@@ -32,52 +32,64 @@ const StudentForm = ({ mode = "add", student }) => {
   });
 
   useEffect(() => {
-  if (mode === "edit" && student) {
-    setFormData({
-      fullName: student.fullName || "",
-      rollNumber: student.rollNumber || "",
-      email: student.email || "",
-      phone: student.phone || "",
-      gender: student.gender || "",
-      dob: student.dob ? student.dob.split("T")[0] : "",
-      department: student.department || "",
-      course: student.course || "",
-      year: student.year || "",
-      semester: student.semester || "",
-      fatherName: student.fatherName || "",
-      motherName: student.motherName || "",
-      parentPhone: student.parentPhone || "",
-      parentEmail: student.parentEmail || "",
-      admissionNumber: student.admissionNumber || "",
-      admissionDate: student.admissionDate
-        ? student.admissionDate.split("T")[0]
-        : "",
-      previousSchool: student.previousSchool || "",
-      cgpa: student.cgpa || "",
-      address: student.address || "",
-    });
-  }
-}, [mode, student]);
+    if (mode === "edit" && student) {
+      setFormData({
+        fullName: student.fullName || "",
+        rollNumber: student.rollNumber || "",
+        email: student.email || "",
+        phone: student.phone || "",
+        gender: student.gender || "",
+        dob: student.dob ? student.dob.split("T")[0] : "",
+        department: student.department || "",
+        course: student.course || "",
+        year: student.year || "",
+        semester: student.semester || "",
+        fatherName: student.fatherName || "",
+        motherName: student.motherName || "",
+        parentPhone: student.parentPhone || "",
+        parentEmail: student.parentEmail || "",
+        admissionNumber: student.admissionNumber || "",
+        admissionDate: student.admissionDate
+          ? student.admissionDate.split("T")[0]
+          : "",
+        previousSchool: student.previousSchool || "",
+        cgpa: student.cgpa || "",
+        address: student.address || "",
+      });
+      setProfileImage(student.profileImage || null);
+    }
+  }, [mode, student]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try{
-       let response;
+    try {
+      const studentData = new FormData();
 
-    if (mode === "add") {
-      response = await createStudent(formData);
-      alert("Student created successfully!");
-    } else {
-      response = await updateStudent(student._id, formData);
-      alert("Student updated successfully!");
-    }
+      // Append all form fields
+      Object.keys(formData).forEach((key) => {
+        studentData.append(key, formData[key]);
+      });
 
-    console.log(response);
+      // Append image if selected
+      if (profileImage instanceof File) {
+        studentData.append("profileImage", profileImage);
+      }
+
+      let response;
+
+      if (mode === "add") {
+        response = await createStudent(studentData);
+        alert("Student created successfully!");
+      } else {
+        response = await updateStudent(student._id, studentData);
+        alert("Student updated successfully!");
+      }
     } catch (error) {
-      console.error("Error creating student:", error);
+      console.error(error);
+      alert("Something went wrong!");
     }
-  }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;

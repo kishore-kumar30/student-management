@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import studentRoutes from "./routes/studentRoutes.js";
+import path from "path";
 
 // Load environment variables
 dotenv.config();
@@ -13,6 +14,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use("/api/students", studentRoutes);
 
 // Test Route

@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 
 const ProfileUpload = ({ profileImage, setProfileImage }) => {
   const [preview, setPreview] = useState("");
 
+  useEffect(() => {
+    if (!profileImage) return;
+
+    if (typeof profileImage === "string") {
+      setPreview(`http://localhost:5000${profileImage}`);
+    } else {
+      setPreview(URL.createObjectURL(profileImage));
+    }
+  }, [profileImage]);
+
   const handleImage = (e) => {
     const file = e.target.files[0];
     if (!file) return;
     setProfileImage(file);
-
-    setPreview(URL.createObjectURL(file));
   };
 
-  console.log(preview);
-  
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-cyan-500">

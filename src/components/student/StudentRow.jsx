@@ -26,13 +26,13 @@ const StudentRow = ({ student, fetchStudents }) => {
     }
   };
   const navigate = useNavigate();
-
+  
   return (
     <tr className="border-b hover:bg-gray-50 transition">
       <td className="p-4">
         {student.profileImage ? (
           <img
-            src={student.profileImage}
+            src={`http://localhost:5000${student.profileImage}`}
             alt={student.fullName}
             className="w-10 h-10 rounded-full object-cover"
           />
