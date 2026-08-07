@@ -4,7 +4,7 @@ import FormButtons from "./FormButtons";
 import FormSection from "./FormSection";
 import Input from "../common/Input";
 import Select from "../common/Select";
-import Textarea from "../common/TextArea";
+import Textarea from "../common/Textarea";
 import { createStudent, updateStudent } from "../../services/studentService";
 import { toast } from "react-toastify";
 
