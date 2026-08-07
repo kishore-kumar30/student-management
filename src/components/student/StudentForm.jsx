@@ -6,6 +6,7 @@ import Input from "../common/Input";
 import Select from "../common/Select";
 import Textarea from "../common/TextArea";
 import { createStudent, updateStudent } from "../../services/studentService";
+import { toast } from "react-toastify";
 
 const StudentForm = ({ mode = "add", student }) => {
   const [profileImage, setProfileImage] = useState(null);
@@ -80,14 +81,14 @@ const StudentForm = ({ mode = "add", student }) => {
 
       if (mode === "add") {
         response = await createStudent(studentData);
-        alert("Student created successfully!");
+        toast.success("Student created successfully!");
       } else {
         response = await updateStudent(student._id, studentData);
-        alert("Student updated successfully!");
+        toast.success("Student updated successfully!");
       }
     } catch (error) {
       console.error(error);
-      alert("Something went wrong!");
+      toast.error("Something went wrong!");
     }
   };
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getStudents } from "../../services/studentService";
 import { Link } from "react-router-dom";
+import {toast} from "react-toastify";
 
 const RecentStudents = () => {
   const [students, setStudents] = useState([]);
@@ -10,7 +11,7 @@ const RecentStudents = () => {
       const response = await getStudents();
       setStudents(response.data);
     } catch (error) {
-      console.log(error);
+    toast.error(error.messge || "Failed to fetch students");
     }
   };
   useEffect(() => {

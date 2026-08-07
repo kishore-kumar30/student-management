@@ -1,4 +1,6 @@
 import student from "../models/student.js";
+import path from "path";
+import fs from "fs";
 
 export const createStudent = async (req, res) => {
   try {
@@ -74,6 +76,27 @@ export const updateStudent = async (req, res) => {
       studentData.profileImage = `/uploads/${req.file.filename}`;
     }
     const { studentId } = req.params;
+    const existingStudent = await student.findById(studentId);
+    if (!existingStudent) {
+      return res.status(404).json({
+        success: false,
+        message: "Student not found",
+      });
+    }
+    if (req.file) {
+      // Delete the old profile image if it exists
+      if (existingStudent.profileImage) {
+        const oldImagePath = path.join(
+          process.cwd(),
+          existingStudent.profileImage,
+        );
+        fs.unlink(oldImagePath,  (err) => {
+          if (err) {
+            console.log("Error deleting old profile image:", err);
+          }
+        });
+      }
+    }
     const updatedStudent = await student.findByIdAndUpdate(
       studentId,
       studentData,
@@ -103,6 +126,23 @@ export const updateStudent = async (req, res) => {
 export const deleteStudent = async (req, res) => {
   try {
     const { studentId } = req.params;
+    const existingStudent = await student.findById(studentId);
+    if (!existingStudent) {
+      return res.status(404).json({
+        success: false,
+        message: "Student not found",
+      });
+    }
+
+    if (existingStudent.profileImage) {
+      const imagePath = path.join(
+        process.cwd(),
+        existingStudent.profileImage,
+      );
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+    }
     const deletedStudent = await student.findByIdAndDelete(studentId);
 
     if (!deletedStudent) {

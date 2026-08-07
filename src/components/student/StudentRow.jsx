@@ -4,6 +4,7 @@ import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import Avatar from "../../assets/avatar.png";
 import { useNavigate } from "react-router-dom";
 import { deleteStudent } from "../../services/studentService";
+import { toast } from "react-toastify";
 
 const StudentRow = ({ student, fetchStudents }) => {
   const handleDelete = async () => {
@@ -16,17 +17,17 @@ const StudentRow = ({ student, fetchStudents }) => {
     try {
       await deleteStudent(student._id);
 
-      alert("Student deleted successfully!");
+      toast.success("Student deleted successfully!");
 
       fetchStudents();
     } catch (error) {
       console.error(error);
 
-      alert("Failed to delete student.");
+      toast.error(error.response?.data?.message || "Failed to delete student.");
     }
   };
   const navigate = useNavigate();
-  
+
   return (
     <tr className="border-b hover:bg-gray-50 transition">
       <td className="p-4">
