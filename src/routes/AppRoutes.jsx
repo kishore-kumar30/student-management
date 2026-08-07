@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import DashboardLayout from "../components/layout/DashboardLayout";
-import Login from "../pages/auth/Login";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Students from "../pages/students/Students";
 import AddStudent from "../pages/students/AddStudent";
@@ -12,6 +11,7 @@ import Marks from "../pages/marks/Marks";
 import Fees from "../pages/fees/Fees";
 import Reports from "../pages/reports/Reports";
 import Settings from "../pages/settings/Settings";
+import Login from "../pages/auth/Login";
 
 function AppRoutes() {
   return (
