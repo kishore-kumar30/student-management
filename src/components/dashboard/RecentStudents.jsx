@@ -3,21 +3,10 @@ import { getStudents } from "../../services/studentService";
 import { Link } from "react-router-dom";
 import {toast} from "react-toastify";
 
-const RecentStudents = () => {
-  const [students, setStudents] = useState([]);
+const RecentStudents = ({studentsData}) => {
 
-  const fetchStudents = async () => {
-    try {
-      const response = await getStudents();
-      setStudents(response.data);
-    } catch (error) {
-    toast.error(error.messge || "Failed to fetch students");
-    }
-  };
-  useEffect(() => {
-    fetchStudents();
-  }, []);
-
+  const students = studentsData.recentStudents ?? [];
+  
   return (
     <div className="bg-white rounded-xl shadow p-6">
       <div className="flex justify-between items-center mb-4">
@@ -39,8 +28,8 @@ const RecentStudents = () => {
         </thead>
 
         <tbody>
-          {students.slice(0, 3).map((student) => (
-            <tr key={student.id} className="border-b">
+          {students?.slice(0, 3)?.map((student) => (
+            <tr key={student._id} className="border-b">
               <td className="py-3">{student.rollNumber}</td>
               <td>{student.fullName}</td>
               <td>{student.department}</td>

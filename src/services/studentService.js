@@ -11,8 +11,8 @@ export const createStudent = async (studentData) => {
   return response.data;
 };
 
-export const getStudents = async () => {
-  const response = await axios.get(API);
+export const getStudents = async (page = 1, limit = 5) => {
+  const response = await axios.get(`${API}?page=${page}&limit=${limit}`);
   return response.data;
 };
 

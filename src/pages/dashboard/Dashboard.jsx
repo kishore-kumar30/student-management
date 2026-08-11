@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import ChartSection from "../../components/dashboard/ChartSection";
 import DashboardHeader from "../../components/dashboard/DashboardHeader";
 import QuickActions from "../../components/dashboard/QuickActions";
@@ -9,8 +10,30 @@ import {
   FaClipboardCheck,
   FaMoneyBillWave,
 } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { getDashboardStats } from "../../services/dashboardService";
 
-function Dashboard() {
+const Dashboard = () => {
+  const [stats, setStats] = useState({
+    totalStudents: 0,
+    activeStudents: 0,
+    totalDepartments: 0,
+    recentStudents: [],
+  });
+
+  useEffect(() => {
+    fetchDashboardStats();
+  }, []);
+
+  const fetchDashboardStats = async () => {
+    try {
+      const data = await getDashboardStats();
+      setStats(data);
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+
   return (
     <div>
       <DashboardHeader />
@@ -18,7 +41,7 @@ function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           <StatCard
             title="Total Students"
-            value="250"
+            value={stats.totalStudents}
             icon={<FaUserGraduate size={24} />}
             color="bg-blue-500"
           />
@@ -47,20 +70,16 @@ function Dashboard() {
 
         <ChartSection />
 
-
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          <div className="xl:col-span-2">
+            <RecentStudents studentsData = {stats} />
+          </div>
 
-        <div className="xl:col-span-2">
-          <RecentStudents />
+          <QuickActions />
         </div>
-
-        <QuickActions />
-
       </div>
-      </div>
-      
     </div>
   );
-}
+};
 
 export default Dashboard;
