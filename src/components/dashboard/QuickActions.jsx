@@ -15,31 +15,23 @@ const QuickActions = () => {
       path: "/students/add",
     },
     {
-      title: "Mark Attendance",
-      icon: <FaClipboardCheck />,
-    },
-    {
       title: "Add Course",
       icon: <FaBook />,
-    },
-    {
-      title: "Generate Report",
-      icon: <FaFileAlt />,
     },
   ];
 
   return (
     <div className="bg-white rounded-xl shadow p-6">
-      <h2 className="text-xl font-semibold mb-5">Quick Actions</h2>
+      <h2 className="text-xl font-semibold mb-5 text-cyan-700">Quick Actions</h2>
 
-      <div className="grid grid-cols-2 gap-5">
+      <div className="flex gap-5">
         {actions?.map((action) => (
           <Link
             to={action.path}
             key={action.title}
-            className="flex flex-col  cursor-pointer items-center justify-center gap-2 border rounded-lg p-5 hover:bg-cyan-50 hover:border-cyan-500 transition"
+            className="flex  cursor-pointer items-center justify-center gap-5 border-2 border-cyan-500 rounded-lg p-5 hover:bg-cyan-500 hover:text-white transition"
           >
-            <div className="text-3xl text-cyan-600">{action.icon}</div>
+            <div className="text-3xl">{action.icon}</div>
 
             <span className="font-medium">{action.title}</span>
           </Link>

@@ -17,10 +17,10 @@ const menuItems = [
   { name: "Dashboard", path: "/dashboard", icon: <FaHome /> },
   { name: "Students", path: "/students", icon: <FaUserGraduate /> },
   { name: "Courses", path: "/courses", icon: <FaBook /> },
-  { name: "Attendance", path: "/attendance", icon: <FaClipboardCheck /> },
-  { name: "Marks", path: "/marks", icon: <FaChartBar /> },
-  { name: "Fees", path: "/fees", icon: <FaMoneyBillWave /> },
-  { name: "Reports", path: "/reports", icon: <FaFileAlt /> },
+  // { name: "Attendance", path: "/attendance", icon: <FaClipboardCheck /> },
+  // { name: "Marks", path: "/marks", icon: <FaChartBar /> },
+  // { name: "Fees", path: "/fees", icon: <FaMoneyBillWave /> },
+  // { name: "Reports", path: "/reports", icon: <FaFileAlt /> },
   { name: "Settings", path: "/settings", icon: <FaCog /> },
 ];
 

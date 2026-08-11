@@ -6,10 +6,6 @@ import AddStudent from "../pages/students/AddStudent";
 import EditStudent from "../pages/students/EditStudent";
 import StudentProfile from "../pages/students/StudentProfile";
 import Courses from "../pages/courses/Courses";
-import Attendance from "../pages/attendance/Attendance";
-import Marks from "../pages/marks/Marks";
-import Fees from "../pages/fees/Fees";
-import Reports from "../pages/reports/Reports";
 import Settings from "../pages/settings/Settings";
 import Login from "../pages/auth/Login";
 
@@ -26,10 +22,6 @@ function AppRoutes() {
         <Route path="/students/:id" element={<StudentProfile />} />
         <Route path="/students/edit/:id" element={<EditStudent />} />
         <Route path="/courses" element={<Courses />} />
-        <Route path="/attendance" element={<Attendance />} />
-        <Route path="/marks" element={<Marks />} />
-        <Route path="/fees" element={<Fees />} />
-        <Route path="/reports" element={<Reports />} />
         <Route path="/settings" element={<Settings />} />
       </Route>
     </Routes>

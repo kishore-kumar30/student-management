@@ -9,12 +9,12 @@ const DashboardHeader = () => {
   });
 
   return (
-    <div className="mb-8">
-      <h1 className="text-3xl font-bold text-gray-800">
-        Welcome Back, Admin 👋
-      </h1>
-
-      <p className="text-gray-500 mt-2">{today}</p>
+    <div className="flex justify-between">
+      <div></div>
+      <div className="">
+        <h1 className="text-2xl font-bold text-gray-800">Welcome, Admin 👋</h1>
+        <p className="text-gray-500 mt-2">{today}</p>
+      </div>
     </div>
   );
 };
