@@ -4,6 +4,7 @@ import StudentFilters from "../../components/student/StudentFilters";
 import StudentTable from "../../components/student/StudentTable";
 import { getStudents } from "../../services/studentService";
 import Pagination from "../../components/common/Pagination";
+import Loader from "../../components/common/Loader";
 
 const Students = () => {
   const [students, setStudents] = useState([]);
@@ -12,14 +13,18 @@ const Students = () => {
   const [yearFilter, setYearFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const fetchStudents = async () => {
     try {
+      setLoading(true);
       const response = await getStudents(currentPage, 5);
       setStudents(response.data);
       setTotalPages(response.totalPages);
     } catch (error) {
       console.error("Error fetching students:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -44,36 +49,42 @@ const Students = () => {
   }, [currentPage]);
 
   return (
-    <div className="space-y-6">
-      <StudentHeader />
-
-      {students?.length > 0 ? (
-        <>
-          <StudentFilters
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            departmentFilter={departmentFilter}
-            setDepartmentFilter={setDepartmentFilter}
-            yearFilter={yearFilter}
-            setYearFilter={setYearFilter}
-          />
-
-          <StudentTable
-            students={filteredStudents}
-            fetchStudents={fetchStudents}
-          />
-
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            setCurrentPage={setCurrentPage}
-          />
-        </>
+    <div>
+      {loading ? (
+        <Loader />
       ) : (
-        <div>
-          <h1 className="text-xl font-bold text-center text-gray-800">
-            No record found.
-          </h1>
+        <div className="space-y-6">
+          <StudentHeader />
+
+          {students?.length > 0 ? (
+            <>
+              <StudentFilters
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                departmentFilter={departmentFilter}
+                setDepartmentFilter={setDepartmentFilter}
+                yearFilter={yearFilter}
+                setYearFilter={setYearFilter}
+              />
+
+              <StudentTable
+                students={filteredStudents}
+                fetchStudents={fetchStudents}
+              />
+
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                setCurrentPage={setCurrentPage}
+              />
+            </>
+          ) : (
+            <div>
+              <h1 className="text-xl font-bold text-center text-gray-800">
+                No record found.
+              </h1>
+            </div>
+          )}
         </div>
       )}
     </div>

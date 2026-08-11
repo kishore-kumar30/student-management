@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { getDashboardStats } from "../../services/dashboardService";
+import Loader from "../../components/common/Loader";
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -20,6 +21,7 @@ const Dashboard = () => {
     totalDepartments: 0,
     recentStudents: [],
   });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchDashboardStats();
@@ -27,12 +29,19 @@ const Dashboard = () => {
 
   const fetchDashboardStats = async () => {
     try {
+      setLoading(true);
       const data = await getDashboardStats();
       setStats(data);
     } catch (error) {
       toast.error(error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div>
@@ -72,7 +81,7 @@ const Dashboard = () => {
 
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           <div className="xl:col-span-2">
-            <RecentStudents studentsData = {stats} />
+            <RecentStudents studentsData={stats} />
           </div>
 
           <QuickActions />

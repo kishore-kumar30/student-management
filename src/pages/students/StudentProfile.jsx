@@ -3,17 +3,21 @@ import { useParams } from "react-router-dom";
 import { getStudentById } from "../../services/studentService";
 import avatar from "../../assets/avatar.png";
 import { API_URL } from "../../../server/config/api";
+import Loader from "../../components/common/Loader";
 
 const StudentProfile = () => {
   const { id } = useParams();
   const [student, setStudent] = useState(null);
-
+  const [loading, setLoading] = useState(false);
   const fetchStudent = async () => {
     try {
+      setLoading(true);
       const response = await getStudentById(id);
       setStudent(response.data);
     } catch (error) {
       console.error("Error fetching student:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -21,8 +25,14 @@ const StudentProfile = () => {
     fetchStudent();
   }, []);
 
+  if (loading) return <Loader />;
+
   if (!student) {
-    return <h2>Loading...</h2>;
+    return (
+      <div className="p-6">
+        <h2>No student found</h2>
+      </div>
+    );
   }
 
   const studentFields = [
